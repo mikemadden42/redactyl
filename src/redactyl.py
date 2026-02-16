@@ -1,6 +1,7 @@
 import argparse
 import os
 import re
+import signal
 import sys
 import time
 
@@ -286,6 +287,11 @@ if __name__ == "__main__":
     args, unknown = parser.parse_known_args()
 
     app = QApplication([sys.argv[0]] + unknown)
+
+    # --- FIX: GRACEFUL CTRL-C EXIT ---
+    # Tells Qt to let the OS instantly and cleanly kill the process on Ctrl-C
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+
     window = Overlay(show_all_text=args.show_all)
     window.show()
     sys.exit(app.exec())
