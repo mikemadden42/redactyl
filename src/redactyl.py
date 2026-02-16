@@ -144,9 +144,13 @@ class Overlay(QMainWindow):
 
         for qx, qy, qw, qh in self.quadrants:
             quad_img = img_rgb[qy : qy + qh, qx : qx + qw]
-            scale_factor = npu_w / qw
+
+            # --- FIX: ROBUST ASPECT-RATIO INDEPENDENT SCALING ---
+            # Use min() to ensure we never exceed the NPU canvas bounds
+            scale_factor = min(npu_w / qw, npu_h / qh)
             scaled_w, scaled_h = int(qw * scale_factor), int(qh * scale_factor)
 
+            # Create an exact target canvas for the NPU
             canvas = np.zeros((npu_h, npu_w, 3), dtype=np.uint8)
             canvas[0:scaled_h, 0:scaled_w] = cv2.resize(
                 quad_img, (scaled_w, scaled_h), interpolation=cv2.INTER_AREA
@@ -158,9 +162,10 @@ class Overlay(QMainWindow):
                 ),
                 axis=0,
             )
-            valid_heatmap = compiled_model([input_tensor])[output_layer][0][0][
-                0:scaled_h, 0:scaled_w
-            ]
+
+            # Run Inference and slice out only the valid (non-letterboxed) region
+            results = compiled_model([input_tensor])[output_layer][0][0]
+            valid_heatmap = results[0:scaled_h, 0:scaled_w]
 
             binary_map = cv2.dilate(
                 (valid_heatmap > 0.25).astype(np.uint8) * 255,
