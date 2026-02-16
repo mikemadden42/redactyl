@@ -84,12 +84,20 @@ class Overlay(QMainWindow):
     def __init__(self, show_all_text=False):
         super().__init__()
 
-        self.setWindowFlags(
+        # Base flags that work natively on both Windows and Linux
+        base_flags = (
             Qt.WindowType.WindowStaysOnTopHint
             | Qt.WindowType.FramelessWindowHint
             | Qt.WindowType.WindowTransparentForInput
-            | Qt.WindowType.X11BypassWindowManagerHint
+            | Qt.WindowType.Tool  # Bonus for Windows: hides the invisible app from the taskbar
         )
+
+        # Apply the X11 bypass ONLY if we are actually running on Linux
+        if sys.platform == "linux":
+            base_flags |= Qt.WindowType.X11BypassWindowManagerHint
+
+        self.setWindowFlags(base_flags)
+
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.sct = mss.mss()

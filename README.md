@@ -1,10 +1,12 @@
 # Redactyl
 
-Redactyl is a hardware-accelerated AI privacy shield for Linux. It uses your Intel Core Ultra NPU to scan your screen in real-time and automatically redacts sensitive information (API keys, passwords, secrets) before they can be leaked during screen shares or recordings.
+Redactyl is a hardware-accelerated AI privacy shield for Linux & Windows. It uses your Intel Core Ultra NPU to scan your screen in real-time and automatically redacts sensitive information (API keys, passwords, secrets) before they can be leaked during screen shares or recordings.
 
 ## Prerequisites
 
-### 1. Hardware Drivers (Ubuntu 24.04+)
+### 1. Hardware Drivers
+
+**For Ubuntu 24.04+:**
 
 To utilize the Intel AI Boost NPU and Arc GPU, you must install the user-space compute runtimes. OpenVINO also requires `libxcb` to render the PyQt6 overlay.
 
@@ -19,6 +21,9 @@ sudo usermod -aG render,video $USER
 ```
 
 *Note: A system reboot is recommended after changing user groups.*
+
+**For Windows 11:**
+Simply download and install the official [Intel® NPU Driver](https://www.intel.com/content/www/us/en/download/794734/intel-npu-driver-windows.html). No additional system packages are required.
 
 ### 2. Python Environment
 
@@ -82,6 +87,8 @@ alias shield-up='cd ~/src/redactyl && uv run src/redactyl.py'
 
 ## Monitoring
 
+**On Linux:**
+
 To see your NPU in action, you can use the [nputop](https://github.com/ZoLArk173/nputop) tool:
 
 
@@ -90,10 +97,12 @@ cd nputop
 cargo run
 
 ```
+**On Windows 11:**
+
+Open the Task Manager, navigate to the Performance tab, and scroll down to view the native Intel(R) AI Boost (NPU) usage graphs.
 
 ## V2 Roadmap
 
-* **Windows 11 Support:** Expand hardware-accelerated redaction to Windows using OpenVINO's native cross-platform support for Intel Core Ultra NPUs.
 * **Virtual Camera Architecture:** Pipe redacted video to a virtual webcam to avoid the "Observer Effect".
 * **Optical Flow Tracking:** Stick redaction boxes to moving windows smoothly.
 * **Application Targeting:** Only scan specific windows (e.g., VS Code or Terminal) to save battery.
