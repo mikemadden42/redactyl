@@ -1,4 +1,4 @@
-# Redactyl (v1.0.0)
+# Redactyl
 
 Redactyl is a hardware-accelerated AI privacy shield for Linux. It uses your Intel Core Ultra NPU to scan your screen in real-time and automatically redacts sensitive information (API keys, passwords, secrets) before they can be leaked during screen shares or recordings.
 
@@ -82,7 +82,8 @@ alias shield-up='cd ~/src/redactyl && uv run src/redactyl.py'
 
 ## Monitoring
 
-To see your NPU in action, you can use the included Rust-based monitor:
+To see your NPU in action, you can use the [nputop](https://github.com/ZoLArk173/nputop) tool:
+
 
 ```bash
 cd nputop
@@ -92,8 +93,7 @@ cargo run
 
 ## V2 Roadmap
 
+* **Windows 11 Support:** Expand hardware-accelerated redaction to Windows using OpenVINO's native cross-platform support for Intel Core Ultra NPUs.
 * **Virtual Camera Architecture:** Pipe redacted video to a virtual webcam to avoid the "Observer Effect".
 * **Optical Flow Tracking:** Stick redaction boxes to moving windows smoothly.
 * **Application Targeting:** Only scan specific windows (e.g., VS Code or Terminal) to save battery.
-
-```
