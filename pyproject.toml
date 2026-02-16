@@ -1,0 +1,42 @@
+[project]
+name = "redactyl"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mss>=10.1.0",
+    "numpy>=2.3.5",
+    "opencv-python-headless>=4.13.0.92",
+    "openvino>=2025.4.1",
+    "paddle2onnx>=2.1.0",
+    "paddleocr>=3.4.0",
+    "paddlepaddle>=3.3.0",
+    "pyqt6>=6.10.2",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.1",
+]
+
+[tool.ruff]
+lint.select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # isort
+    "I",
+    # flake8-bandit
+    "S",
+    # flake8-bugbear
+    "B",
+    # Pylint
+    "PL"
+]
+lint.ignore = [
+    # tests use assert
+    "S101"
+]

@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# AI Models and Weights
+src/en_PP-OCRv4_rec_infer/
+*.onnx
+*.pdmodel
+*.pdiparams
+
+# OpenVINO Hardware Cache
+npu_cache/
