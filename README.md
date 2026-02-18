@@ -91,11 +91,9 @@ alias shield-up='cd ~/src/redactyl && uv run src/redactyl.py'
 
 To see your NPU in action, you can use the [nputop](https://github.com/ZoLArk173/nputop) tool:
 
-
 ```bash
 cd nputop
 cargo run
-
 ```
 **On Windows 11:**
 
