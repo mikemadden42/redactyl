@@ -95,6 +95,7 @@ To see your NPU in action, you can use the [nputop](https://github.com/ZoLArk173
 cd nputop
 cargo run
 ```
+
 **On Windows 11:**
 
 Open the Task Manager, navigate to the Performance tab, and scroll down to view the native Intel(R) AI Boost (NPU) usage graphs.
